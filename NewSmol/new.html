@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #taskInput {
+            width: 70%;
+            padding: 10px;
+        }
+
+        #addTaskBtn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            background-color: #cfc;
+        }
+
+        .deleteTaskBtn {
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple To-Do List</h1>
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addTaskBtn">Add Task</button>
+    </div>
+    <ul id="taskList">
+    </ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const taskInput = document.getElementById("taskInput");
+            const addTaskBtn = document.getElementById("addTaskBtn");
+            const taskList = document.getElementById("taskList");
+
+            addTaskBtn.addEventListener("click", function() {
+                const taskText = taskInput.value.trim();
+
+                if (taskText !== "") {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = taskText;
+                    listItem.classList.add("taskItem");
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Delete";
+                    deleteButton.classList.add("deleteTaskBtn");
+                    deleteButton.addEventListener("click", function() {
+                        listItem.remove();
+                    });
+
+                    listItem.appendChild(deleteButton);
+
+                    listItem.addEventListener("click", function() {
+                        listItem.classList.toggle("completed");
+                    });
+
+                    taskList.appendChild(listItem);
+
+                    taskInput.value = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
